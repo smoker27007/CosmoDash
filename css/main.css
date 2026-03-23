@@ -1,0 +1,114 @@
+:root {
+  --bg-space-0: #040916;
+  --bg-space-1: #0a1330;
+  --bg-space-2: #122246;
+  --text-main: #d9f3ff;
+  --text-dim: #93b6d2;
+  --accent-cyan: #66f4ff;
+  --accent-gold: #ffe383;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "Orbitron", sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(
+      circle at 14% 20%,
+      rgba(40, 109, 163, 0.28),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 84% 74%,
+      rgba(52, 165, 180, 0.24),
+      transparent 44%
+    ),
+    linear-gradient(
+      155deg,
+      var(--bg-space-0),
+      var(--bg-space-1) 48%,
+      var(--bg-space-2)
+    );
+  overflow: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(0, 0, 0, 0.1) 3px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  opacity: 0.32;
+  pointer-events: none;
+  z-index: 2;
+}
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+.layout {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.hero {
+  width: min(960px, 100%);
+  text-align: center;
+  padding: clamp(10px, 2vw, 24px);
+}
+.eyebrow {
+  color: var(--accent-cyan);
+  font-size: clamp(11px, 1.5vw, 14px);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+h1 {
+  font-family: "Press Start 2P", cursive;
+  font-size: clamp(34px, 7vw, 88px);
+  line-height: 1.2;
+  color: var(--accent-gold);
+  text-shadow:
+    0 0 18px rgba(255, 211, 107, 0.55),
+    0 0 46px rgba(255, 227, 131, 0.25);
+}
+.blink-text {
+  margin-top: 24px;
+  color: var(--accent-cyan);
+  font-family: "Press Start 2P", cursive;
+  font-size: clamp(10px, 1.7vw, 13px);
+  letter-spacing: 0.12em;
+  animation: pulseText 1.4s steps(1) infinite;
+}
+@media (max-width: 700px) {
+  .layout {
+    padding: 12px;
+  }
+}
+
+@keyframes pulseText {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
