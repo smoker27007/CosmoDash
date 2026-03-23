@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +11,37 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
     <canvas id="starfield" aria-hidden="true"></canvas>
     <main class="layout">
-        <header class="hero">
-            <h1>CosmoDash</h1>
-        </header>
+        <section class="hero" aria-labelledby="game-title">
+            <p class="eyebrow">Ready for Launch</p>
+            <h1 id="game-title">CosmoDash</h1>
+            <p class="tagline">Arcade runner through deep space</p>
+
+            <nav class="menu" aria-label="Main menu">
+                <button class="btn btn-primary" id="btn-start" type="button">Start Game</button>
+
+                <div class="menu-divider" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="btn-grid">
+                    <button class="btn btn-secondary" id="btn-scores" type="button">High Scores</button>
+                    <button class="btn btn-secondary" id="btn-settings" type="button">Settings</button>
+                    <button class="btn btn-secondary" id="btn-howto" type="button">How to Play</button>
+                    <button class="btn btn-secondary" id="btn-credits" type="button">Credits</button>
+                    <button class="btn btn-danger" id="btn-exit" type="button">Exit</button>
+                </div>
+            </nav>
+        </section>
     </main>
     <script type="module" src="js/home.js"></script>
 </body>
+
 </html>

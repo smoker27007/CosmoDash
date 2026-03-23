@@ -1,9 +1,14 @@
 const starfield = document.getElementById("starfield");
-if (!starfield) {
+
+if (!(starfield instanceof HTMLCanvasElement)) {
     throw new Error("Missing #starfield canvas");
 }
 
 const context = starfield.getContext("2d");
+
+if (!context) {
+    throw new Error("Unable to create canvas 2D context");
+}
 
 const stars = Array.from({ length: 220 }, () => ({
     x: Math.random(),
@@ -19,15 +24,22 @@ const meteors = [
 ];
 
 function resize() {
-    starfield.width = window.innerWidth;
-    starfield.height = window.innerHeight;
+    const scale = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    starfield.width = Math.floor(width * scale);
+    starfield.height = Math.floor(height * scale);
+    starfield.style.width = `${width}px`;
+    starfield.style.height = `${height}px`;
+
+    context.setTransform(scale, 0, 0, scale, 0, 0);
 }
 
 function drawStars() {
     for (const star of stars) {
-        const px = star.x * starfield.width;
-        const py = star.y * starfield.height;
-
+        const px = star.x * window.innerWidth;
+        const py = star.y * window.innerHeight;
         context.fillStyle = `rgba(190, 231, 255, ${star.alpha})`;
         context.fillRect(px, py, star.size, star.size);
 
@@ -41,10 +53,15 @@ function drawStars() {
 
 function drawMeteors() {
     for (const meteor of meteors) {
-        const x = meteor.x * starfield.width;
-        const y = meteor.y * starfield.height;
+        const x = meteor.x * window.innerWidth;
+        const y = meteor.y * window.innerHeight;
 
-        const gradient = context.createLinearGradient(x, y, x + meteor.len, y + meteor.len * 0.45);
+        const gradient = context.createLinearGradient(
+            x,
+            y,
+            x + meteor.len,
+            y + meteor.len * 0.45
+        );
         gradient.addColorStop(0, "rgba(170, 245, 255, 0.9)");
         gradient.addColorStop(1, "rgba(170, 245, 255, 0)");
 
@@ -66,12 +83,31 @@ function drawMeteors() {
 }
 
 function animate() {
-    context.clearRect(0, 0, starfield.width, starfield.height);
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     drawStars();
     drawMeteors();
     requestAnimationFrame(animate);
 }
 
+function bindClick(id, message) {
+    const button = document.getElementById(id);
+    if (!button) {
+        return;
+    }
+
+    button.addEventListener("click", () => {
+        console.log(message);
+    });
+}
+
+bindClick("btn-start", "start game");
+bindClick("btn-scores", "high scores");
+bindClick("btn-settings", "settings");
+bindClick("btn-howto", "how to play");
+bindClick("btn-credits", "credits");
+bindClick("btn-exit", "exit");
+
 resize();
 animate();
+
 window.addEventListener("resize", resize);
